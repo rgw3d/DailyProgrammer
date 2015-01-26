@@ -116,18 +116,37 @@ public class WordsWithEnemies {
             if (createdWord.equals(dictWord)) //we made a word!
                 foundWords.add(createdWord);
         }
-        Collections.sort(foundWords);
+        sortListByLength(foundWords);
             switch (aiLevel) {
                 case 1:
-                    return foundWords.get(foundWords.size() / 3);
+                    return foundWords.get(0);
                 case 2:
                     return foundWords.get(foundWords.size() / 2);
                 case 3:
-                    return foundWords.get(foundWords.size() - 1);
+                    return foundWords.get(foundWords.size()-1);
                 default:
                     return "wow";
             }
+    }
 
+    private static ArrayList<String> sortListByLength(ArrayList<String> words) {
+        Comparator<String> x = new Comparator<String>()
+        {
+            @Override
+            public int compare(String o1, String o2)
+            {
+                if(o1.length() > o2.length())
+                    return 1;
+
+                if(o2.length() > o1.length())
+                    return -1;
+
+                return 0;
+            }
+        };
+
+        Collections.sort(words,  x);
+        return words;
     }
 
     private static boolean containedInLetterList(char[] inputChars,String word){
